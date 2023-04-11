@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+}
+
+.coy-name,
+.nav-bar {
+  border: 1px solid green;
+}
+
+.coy-name {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-bar {
+  width: 60%;
+  display: flex;
+  justify-content: right;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-bar li {
+  list-style: none;
+}
