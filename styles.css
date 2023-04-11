@@ -24,10 +24,9 @@
 
 .nav-list {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .nav-bar li {
   list-style: none;
+  margin: 30px;
 }
