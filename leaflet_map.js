@@ -1,8 +1,6 @@
 // Initialise map to Singapore coordinate and define zoom level
 let map = L.map("map").setView([1.3615208221204578, 103.8160867611435], 12);
 
-//todo: Toggle between colored and dark maps
-
 // Open street layer
 let openStreetLayer = L.tileLayer(
   "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -32,8 +30,10 @@ let googleLayer = L.tileLayer(
   }
 );
 
+//Add the base map
 darkMapLayer.addTo(map);
 
+//add layer control and keep it expanded
 let baseMaps = {
   "Dark Map": darkMapLayer,
   "Open Street Map": openStreetLayer,
@@ -48,3 +48,15 @@ let layerControl = L.control.layers(baseMaps, null, {
   collapsed: false,
 });
 layerControl.addTo(map);
+
+//Add location marker
+// let locationMarker = L.marker([1.3615208221204578, 103.8160867611435], {
+//   draggable: true,
+// });
+// let locationPopUp = locationMarker
+//   .bindPopup("Drag me to the location!")
+//   .openPopup();
+// locationPopUp.addTo(map);
+
+let locateMe = L.control.locate({ flyTo: true });
+locateMe.addTo(map);
