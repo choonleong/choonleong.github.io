@@ -73,17 +73,13 @@ $(document).ready(async () => {
     const areaData = response.data.features[0].geometry.coordinates;
     // console.log(areaData);
 
+    const markers = L.markerClusterGroup();
+
     areaData.forEach((i) => {
-      const marker = L.marker([i[1], i[0]]); //API[1] is Lng, API[0] is Lat
-      marker.addTo(map);
+      markers.addLayer(L.marker([i[1], i[0]])); //API[1] is Lng, API[0] is Lat
+      map.addLayer(markers);
     });
   } catch (error) {
     console.log("Error");
   }
 });
-
-// let markers = L.markerClusterGroup();
-
-// markers.addLayer(L.marker(getRandomLatLng(map)));
-// ... Add more layers ...
-// map.addLayer(markers);
