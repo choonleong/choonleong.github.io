@@ -71,21 +71,12 @@ $(document).ready(async () => {
     const response = await taxiLocation.get("/taxi-availability");
 
     const areaData = response.data.features[0].geometry.coordinates;
-    console.log(areaData);
+    // console.log(areaData);
 
-    // areaData.forEach((i) => {
-    //   const marker = L.marker(i);
-    //   console.log(marker);
-    //   marker.addTo(map);
-    // });
-
-    // let marker = areaData[0][0];
-    // let marker2 = areaData[0][1];
-
-    // console.log(marker2, marker);
-
-    let finalMarker = L.marker([areaData[0][1], areaData[0][0]]);
-    finalMarker.addTo(map);
+    areaData.forEach((i) => {
+      const marker = L.marker([i[1], i[0]]); //API[1] is Lng, API[0] is Lat
+      marker.addTo(map);
+    });
   } catch (error) {
     console.log("Error");
   }
