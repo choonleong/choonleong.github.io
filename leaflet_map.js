@@ -33,7 +33,7 @@ let googleLayer = L.tileLayer(
 //Add the base map
 darkMapLayer.addTo(map);
 
-//add layer control and keep it expanded
+//Add layer control and keep it expanded
 let baseMaps = {
   "Dark Map": darkMapLayer,
   "Open Street Map": openStreetLayer,
@@ -60,3 +60,19 @@ layerControl.addTo(map);
 
 let locateMe = L.control.locate({ flyTo: true });
 locateMe.addTo(map);
+
+// Import taxi API- httpsL//api.data.gov.sg/v1/transport/taxi-availability
+const taxiLocation = axios.create({
+  baseURL: "https://api.data.gov.sg/v1/transport",
+});
+
+$(document).ready(async () => {
+  try {
+    const response = await taxiLocation.get("/taxi-availability");
+
+    const records = response.data.features[0].geometry.coordinates;
+    console.log(records);
+  } catch (error) {
+    console.log("Error");
+  }
+});
