@@ -1,3 +1,48 @@
+// Import taxi API- httpsL//api.data.gov.sg/v1/transport/taxi-availability
+const taxiLocation = axios.create({
+  baseURL: "https://api.data.gov.sg/v1/transport",
+});
+
+let areaData;
+let markers = L.markerClusterGroup();
+
+async function getAreaData() {
+  return new Promise((resolve, reject) => {
+    $(document).ready(async () => {
+      try {
+        const response = await taxiLocation.get("/taxi-availability");
+        const areaData = response.data.features[0].geometry.coordinates;
+
+        resolve(areaData); // resolve with the areaData
+      } catch (error) {
+        reject(error); // reject with the error
+      }
+    });
+  });
+}
+
+function refreshData() {
+  getAreaData()
+    .then((areaData) => {
+      // Remove existing markers from the map
+      markers.clearLayers();
+
+      // Loop through whole list, add to marker layer and display them
+      areaData.forEach((i) => {
+        markers.addLayer(L.marker([i[1], i[0]])); // API[1] is Lng, API[0] is Lat
+        map.addLayer(markers.bindPopup("<h2>I'm a taxi</h2>"));
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+//------------------------------------
+// UNCOMMENT setInterval to kick off Markers
+// setInterval(refreshData, 5000);
+//------------------------------------------
+
 // Initialise map to Singapore coordinate and define zoom level
 let map = L.map("map").setView([1.3615208221204578, 103.8160867611435], 12);
 
@@ -42,11 +87,11 @@ let baseMaps = {
   "One Map": omLayer,
 };
 
-// let overlayMaps = {
-//   Cities: cities,
-// };
+let overlayMaps = {
+  Markers: markers,
+};
 
-let layerControl = L.control.layers(baseMaps, null, {
+let layerControl = L.control.layers(baseMaps, overlayMaps, {
   collapsed: false,
 });
 layerControl.addTo(map);
@@ -62,39 +107,3 @@ layerControl.addTo(map);
 
 let locateMe = L.control.locate({ flyTo: true });
 locateMe.addTo(map);
-
-// Import taxi API- httpsL//api.data.gov.sg/v1/transport/taxi-availability
-const taxiLocation = axios.create({
-  baseURL: "https://api.data.gov.sg/v1/transport",
-});
-
-let areaData;
-
-function getAreaData() {
-  return new Promise((resolve, reject) => {
-    $(document).ready(async () => {
-      try {
-        const response = await taxiLocation.get("/taxi-availability");
-        const areaData = response.data.features[0].geometry.coordinates;
-        resolve(areaData); // resolve with the areaData
-      } catch (error) {
-        reject(error); // reject with the error
-      }
-    });
-  });
-}
-
-getAreaData()
-  .then((areaData) => {
-    //marker cluster
-    const markers = L.markerClusterGroup();
-
-    //Loop through whole list, add to marker layer and display them
-    areaData.forEach((i) => {
-      markers.addLayer(L.marker([i[1], i[0]])); //API[1] is Lng, API[0] is Lat
-      map.addLayer(markers.bindPopup("<h2>I'm a taxi</h2>"));
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
