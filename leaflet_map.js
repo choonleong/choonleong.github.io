@@ -1,11 +1,13 @@
+// Declare global variables
+let areaData; // API call
+let markers = L.markerClusterGroup(); //marker cluster
+
 // Import taxi API- httpsL//api.data.gov.sg/v1/transport/taxi-availability
 const taxiLocation = axios.create({
   baseURL: "https://api.data.gov.sg/v1/transport",
 });
 
-let areaData;
-let markers = L.markerClusterGroup();
-
+// Get data from API, resolve to refreshData()
 async function getAreaData() {
   return new Promise((resolve, reject) => {
     $(document).ready(async () => {
@@ -21,6 +23,7 @@ async function getAreaData() {
   });
 }
 
+// clear markers first, then add single markers. Grouped under markerClusterGroup()
 function refreshData() {
   getAreaData()
     .then((areaData) => {
@@ -38,10 +41,9 @@ function refreshData() {
     });
 }
 
-//------------------------------------
-// UNCOMMENT setInterval to kick off Markers
-// setInterval(refreshData, 5000);
-//------------------------------------------
+//Call the markers for the first instance, then refresh at set interval
+refreshData();
+setInterval(refreshData, 30000);
 
 // Initialise map to Singapore coordinate and define zoom level
 let map = L.map("map").setView([1.3615208221204578, 103.8160867611435], 12);
@@ -65,6 +67,7 @@ let googleLayer = L.tileLayer(
   }
 );
 
+// Singapore One Map layer
 let omLayer = L.tileLayer(
   "https://maps-{s}.onemap.sg/v3/Night/{z}/{x}/{y}.png",
   {
@@ -105,5 +108,6 @@ layerControl.addTo(map);
 //   .openPopup();
 // locationPopUp.addTo(map);
 
+// Locate my location and zoom to me
 let locateMe = L.control.locate({ flyTo: true });
 locateMe.addTo(map);
