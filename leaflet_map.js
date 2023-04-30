@@ -2,6 +2,17 @@
 let areaData; // API call
 let markers = L.markerClusterGroup(); //marker cluster
 
+//Icons
+const helpIcon = L.icon({
+  iconUrl: "images/help.png",
+  iconSize: [50, 50],
+});
+
+const taxiIcon = L.icon({
+  iconUrl: "images/taxi.png",
+  iconSize: [35, 35],
+});
+
 // Import taxi API- httpsL//api.data.gov.sg/v1/transport/taxi-availability
 const taxiLocation = axios.create({
   baseURL: "https://api.data.gov.sg/v1/transport",
@@ -32,7 +43,11 @@ function refreshData() {
 
       // Loop through whole list, add to marker layer and display them
       areaData.forEach((i) => {
-        markers.addLayer(L.marker([i[1], i[0]])); // API[1] is Lng, API[0] is Lat
+        markers.addLayer(
+          L.marker([i[1], i[0]], {
+            icon: taxiIcon,
+          })
+        ); // API[1] is Lng, API[0] is Lat
         map.addLayer(markers.bindPopup("<h2>I'm a taxi</h2>"));
       });
     })
@@ -91,7 +106,7 @@ let baseMaps = {
 };
 
 let overlayMaps = {
-  Markers: markers,
+  "Taxi Markers": markers,
 };
 
 let layerControl = L.control.layers(baseMaps, overlayMaps, {
@@ -99,14 +114,15 @@ let layerControl = L.control.layers(baseMaps, overlayMaps, {
 });
 layerControl.addTo(map);
 
-//Add location marker
-// let locationMarker = L.marker([1.3615208221204578, 103.8160867611435], {
-//   draggable: true,
-// });
-// let locationPopUp = locationMarker
-//   .bindPopup("Drag me to the location!")
-//   .openPopup();
-// locationPopUp.addTo(map);
+// Add location marker
+let locationMarker = L.marker([1.3615208221204578, 103.8160867611435], {
+  icon: helpIcon,
+  draggable: true,
+});
+let locationPopUp = locationMarker
+  .bindPopup("Drag me to the location!")
+  .openPopup();
+locationPopUp.addTo(map);
 
 // Locate my location and zoom to me
 let locateMe = L.control.locate({ flyTo: true });
