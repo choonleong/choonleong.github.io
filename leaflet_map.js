@@ -138,10 +138,13 @@ map.on("click", function (e) {
     });
     trackerLocation.addTo(map);
 
-    const helpPopUp = trackerLocation
-      .bindPopup("<h2>I need help!</h2>")
-      .openPopup();
+    const helpPopUp = trackerLocation.bindPopup("<h2>I need help!</h2>");
+    // .openPopup();
     helpPopUp.addTo(map);
+
+    helpPopUp.on("mouseover", function (e) {
+      helpPopUp.openPopup();
+    });
 
     L.Routing.control({
       waypoints: [
