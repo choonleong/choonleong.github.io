@@ -13,6 +13,11 @@ const taxiIcon = L.icon({
   iconSize: [35, 35],
 });
 
+const userIcon = L.icon({
+  iconUrl: "images/user.png",
+  iconSize: [35, 35],
+});
+
 // Import taxi API- httpsL//api.data.gov.sg/v1/transport/taxi-availability
 const taxiLocation = axios.create({
   baseURL: "https://api.data.gov.sg/v1/transport",
@@ -58,7 +63,7 @@ function refreshData() {
 
 //Call the markers for the first instance, then refresh at set interval
 refreshData();
-setInterval(refreshData, 30000);
+// setInterval(refreshData, 30000);
 
 // Initialise map to Singapore coordinate and define zoom level
 let map = L.map("map").setView([1.3615208221204578, 103.8160867611435], 12);
@@ -107,6 +112,7 @@ let baseMaps = {
 
 let overlayMaps = {
   "Taxi Markers": markers,
+  // "My Location": myGroup,
 };
 
 let layerControl = L.control.layers(baseMaps, overlayMaps, {
@@ -122,15 +128,29 @@ layerControl.addTo(map);
 // };
 
 // Add help location marker
-const locationMarker = L.marker([1.3615208221204578, 103.8160867611435], {
-  icon: helpIcon,
-  draggable: true,
-});
+map.on("click", function (e) {
+  navigator.geolocation.getCurrentPosition(routing); //callback function
 
-const locationPopUp = locationMarker
-  .bindPopup("<h2>Drag me to a location!</h2>")
-  .openPopup();
-locationPopUp.addTo(map);
+  function routing(position) {
+    const trackerLocation = L.circle([e.latlng.lat, e.latlng.lng], {
+      radius: 100, //assuming tracker is accurate to 100m radius
+      // icon: helpIcon,
+    });
+    trackerLocation.addTo(map);
+
+    const helpPopUp = trackerLocation
+      .bindPopup("<h2>I need help!</h2>")
+      .openPopup();
+    helpPopUp.addTo(map);
+
+    L.Routing.control({
+      waypoints: [
+        L.latLng(position.coords.latitude, position.coords.longitude),
+        L.latLng(e.latlng.lat, e.latlng.lng),
+      ],
+    }).addTo(map);
+  }
+});
 
 // Locate my location with HTML geolocation
 if (navigator.geolocation == false) {
@@ -146,17 +166,17 @@ function getMyLocation(position) {
   const lng = position.coords.longitude;
   const accuracy = position.coords.accuracy;
 
-  const myLocation = L.marker([lat, lng]).bindPopup(
+  const myLocation = L.marker([lat, lng], { icon: userIcon }).bindPopup(
     "<h2>This is my current location!</h2>"
   );
   myLocation.addTo(map);
 
-  const circles = map.addLayer(L.circle([lat, lng], { radius: accuracy }));
-  circles.addLayer(map);
+  const circles = L.circle([lat, lng], { radius: accuracy });
+  circles.addTo(map);
 }
 
 displayMyLocationNow(); //display my location on the map
-setInterval(circles.clearLayers(), 15000); //clear layer first otherwise browser will continue to lay circles over the previous circle
+setInterval(circles.remove(), 15000); //clear circles layer first otherwise browser will continue to lay circles over the previous circle
 setInterval(displayMyLocationNow, 15000); //refresh my location at set interval
 
 //Leaflet's version of Locate My Location
