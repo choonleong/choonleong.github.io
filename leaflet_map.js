@@ -114,16 +114,54 @@ let layerControl = L.control.layers(baseMaps, overlayMaps, {
 });
 layerControl.addTo(map);
 
-// Add location marker
-let locationMarker = L.marker([1.3615208221204578, 103.8160867611435], {
+// // Create circle for the help marker
+// const circleOption = {
+//   color: "red",
+//   fillColor: "#f03",
+//   fillOpacity: 0,
+// };
+
+// Add help location marker
+const locationMarker = L.marker([1.3615208221204578, 103.8160867611435], {
   icon: helpIcon,
   draggable: true,
 });
-let locationPopUp = locationMarker
-  .bindPopup("Drag me to the location!")
+
+const locationPopUp = locationMarker
+  .bindPopup("<h2>Drag me to a location!</h2>")
   .openPopup();
 locationPopUp.addTo(map);
 
-// Locate my location and zoom to me
-let locateMe = L.control.locate({ flyTo: true });
-locateMe.addTo(map);
+// Locate my location with HTML geolocation
+if (navigator.geolocation == false) {
+  console.log("Geolocation is not supported on your device.");
+} else {
+  function displayMyLocationNow() {
+    navigator.geolocation.getCurrentPosition(getMyLocation); //callback function
+  }
+}
+
+function getMyLocation(position) {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+  const accuracy = position.coords.accuracy;
+
+  const myLocation = L.marker([lat, lng]).bindPopup(
+    "<h2>This is my current location!</h2>"
+  );
+  myLocation.addTo(map);
+
+  const circles = map.addLayer(L.circle([lat, lng], { radius: accuracy }));
+  circles.addLayer(map);
+}
+
+displayMyLocationNow(); //display my location on the map
+setInterval(circles.clearLayers(), 15000); //clear layer first otherwise browser will continue to lay circles over the previous circle
+setInterval(displayMyLocationNow, 15000); //refresh my location at set interval
+
+//Leaflet's version of Locate My Location
+// let locateMe = L.control.locate({
+//   flyTo: true,
+// });
+// locateMe.addTo(map);
+// console.log(locateMe);
