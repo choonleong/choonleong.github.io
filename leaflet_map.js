@@ -112,22 +112,24 @@ let baseMaps = {
 
 let overlayMaps = {
   "Taxi Markers": markers,
-  // "My Location": myGroup,
 };
 
 let layerControl = L.control.layers(baseMaps, overlayMaps, {
-  collapsed: false,
+  collapsed: false, //keep the layer control expanded
 });
 layerControl.addTo(map);
 
-// // Create circle for the help marker
-// const circleOption = {
-//   color: "red",
-//   fillColor: "#f03",
-//   fillOpacity: 0,
-// };
+// Add map scale
+const mapScale = L.control.scale({ position: "bottomleft" });
+mapScale.addTo(map);
 
-// Add help location marker
+// Full screen mode
+const mapID = document.getElementById("map");
+function fullScreen() {
+  mapID.requestFullscreen();
+}
+
+// Add help location marker and display route to destination
 map.on("click", function (e) {
   navigator.geolocation.getCurrentPosition(routing); //callback function
 
@@ -153,6 +155,16 @@ map.on("click", function (e) {
       ],
     }).addTo(map);
   }
+});
+
+// Display mouse coordinates to faciliate help marker
+let latPosition = document.getElementById("mouseCoordinates-lat");
+let lngPosition = document.getElementById("mouseCoordinates-lng");
+
+map.on("mousemove", function (e) {
+  // console.log(e);
+  latPosition.innerHTML = `Latitude: ${e.latlng.lat}`;
+  lngPosition.innerHTML = `Longitude: ${e.latlng.lng}`;
 });
 
 // Locate my location with HTML geolocation
