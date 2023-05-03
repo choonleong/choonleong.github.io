@@ -200,3 +200,8 @@ setInterval(displayMyLocationNow, 15000); //refresh my location at set interval
 // });
 // locateMe.addTo(map);
 // console.log(locateMe);
+
+// Refresh HTML page
+function refreshPage() {
+  window.location.reload();
+}

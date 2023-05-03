@@ -1,36 +1,3 @@
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid black;
-}
-
-.coy-name,
-.nav-bar {
-  border: 1px solid green;
-}
-
-.coy-name {
-  width: 40%;
-  display: flex;
-  justify-content: center;
-}
-
-.nav-bar {
-  width: 60%;
-  display: flex;
-  justify-content: right;
-}
-
-.nav-list {
-  display: flex;
-}
-
-.nav-bar li {
-  list-style: none;
-  margin: 30px;
-}
-
 /* ------------ */
 /* leaflet html */
 /* ------------ */
@@ -43,12 +10,24 @@
   justify-content: center;
 } */
 
-.fullScreenButton {
-  display: block;
+.container,
+#mouseCoordinates-lat,
+#mouseCoordinates-lng {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.fullScreenButton,
+.refreshButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   width: 100%;
   height: 5vh;
-  border: 2px black dotted;
+  /* border: 2px black dotted; */
   cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -60,8 +39,5 @@
 
 #mouseCoordinates-lat,
 #mouseCoordinates-lng {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: red;
 }
