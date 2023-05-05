@@ -2,13 +2,12 @@
 /* leaflet html */
 /* ------------ */
 
-/* .fullScreenContainer,
-#mouseCoordinates-lat,
-#mouseCoordinates-lng {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  background-color: #3e3e3e;
+}
 
 .container,
 #mouseCoordinates-lat,
@@ -27,7 +26,6 @@
   text-align: center;
   width: 100%;
   height: 5vh;
-  /* border: 2px black dotted; */
   cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -39,5 +37,79 @@
 
 #mouseCoordinates-lat,
 #mouseCoordinates-lng {
-  color: red;
+  color: antiquewhite;
 }
+
+/* Style for Contact Form */
+
+.formBody {
+  display: flex;
+  margin-top: 20px;
+}
+
+.formBodyItem {
+  flex: 1;
+  padding: 50px;
+  border: 10px dotted white;
+}
+
+.announce {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: #ea1d6f;
+  font-size: 26px;
+  border: 10px dotted white;
+}
+
+.broadcastGroup {
+  margin-bottom: 15px;
+}
+
+.broadcastGroup.message {
+  margin-top: 40px;
+}
+
+.broadcastGroup.buttons {
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.groupControl {
+  width: 100%;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #666;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.5s;
+}
+
+.groupControl::placeholder {
+  color: #666;
+}
+
+.groupControl:focus {
+  border-bottom-color: #ddd;
+}
+
+.broadcastButton {
+  background: none;
+  border: none;
+  color: #ea1d6f;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.broadcastButton:hover {
+  color: #b9134f;
+}
+
+/* End of Contact Form */
