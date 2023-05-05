@@ -125,9 +125,12 @@ mapScale.addTo(map);
 
 // Full screen mode
 const mapID = document.getElementById("map");
-function fullScreen() {
+const fullScreenButton = document.querySelector(".fullScreenButton");
+function fullScreenMode() {
   mapID.requestFullscreen();
 }
+
+fullScreenButton.addEventListener("click", fullScreenMode);
 
 // Add help location marker and display route to destination
 map.on("click", function (e) {
@@ -202,6 +205,10 @@ setInterval(displayMyLocationNow, 15000); //refresh my location at set interval
 // console.log(locateMe);
 
 // Refresh HTML page
+const refreshButton = document.querySelector(".refreshButton");
+
 function refreshPage() {
   window.location.reload();
 }
+
+refreshButton.addEventListener("click", refreshPage);
