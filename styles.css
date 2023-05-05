@@ -50,7 +50,6 @@ body {
 .formBodyItem {
   flex: 1;
   padding: 50px;
-  border: 10px dotted white;
 }
 
 .announce {
@@ -62,7 +61,6 @@ body {
 
   color: #ea1d6f;
   font-size: 26px;
-  border: 10px dotted white;
 }
 
 .broadcastGroup {
