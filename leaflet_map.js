@@ -204,10 +204,6 @@ setInterval(displayMyLocationNow, 15000); //refresh my location at set interval
 // console.log(locateMe);
 
 // Refresh HTML page
-const refreshButton = document.querySelector(".refreshButton");
-
 function refreshPage() {
   window.location.reload();
 }
-
-refreshButton.addEventListener("click", refreshPage);
