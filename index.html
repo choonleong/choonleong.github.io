@@ -104,24 +104,33 @@
             <input
               class="groupControl"
               placeholder="Family Member's Name"
+              id="memberName"
             />
           </div>
           <div class="broadcastGroup">
-            <input class="groupControl" placeholder="Male / Female"/>
+            <input
+              class="groupControl"
+              placeholder="Male / Female"
+              id="memberGender"
+            />
           </div>
           <div class="broadcastGroup">
-            <input class="groupControl" placeholder="Age" />
+            <input class="groupControl" placeholder="Age" id="memberAge" />
           </div>
           <div class="broadcastGroup message">
-            <input class="groupControl" placeholder="Other features if known: Bald, T-Shirt/Short Pants etc" />
+            <input
+              class="groupControl"
+              placeholder="Other features if known: Bald, T-Shirt/Short Pants etc"
+              id="memberFeatures"
+            />
           </div>
           <div class="broadcastGroup buttons">
             <button class="broadcastButton">CANCEL</button>
-            <button class="broadcastButton">SEND</button>
+            <button class="broadcastButton" onclick="jsAlert()">SEND</button>
           </div>
         </div>
       </div>
-
+    </div>
     <!-- End of Contact Form -->
   </body>
 </html>

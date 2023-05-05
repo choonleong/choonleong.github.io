@@ -207,3 +207,9 @@ setInterval(displayMyLocationNow, 15000); //refresh my location at set interval
 function refreshPage() {
   window.location.reload();
 }
+
+//Sending message
+function jsAlert() {
+  window.alert("Message sent!");
+  refreshPage();
+}
