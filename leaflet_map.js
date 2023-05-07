@@ -63,7 +63,7 @@ function refreshData() {
 
 //Call the markers for the first instance, then refresh at set interval
 refreshData();
-// setInterval(refreshData, 30000);
+setInterval(refreshData, 30000);
 
 // Initialise map to Singapore coordinate and define zoom level
 let map = L.map("map").setView([1.3615208221204578, 103.8160867611435], 12);
