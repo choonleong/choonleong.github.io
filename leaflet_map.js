@@ -68,15 +68,16 @@ setInterval(refreshData, 30000);
 // Initialise map to Singapore coordinate and define zoom level
 let map = L.map("map").setView([1.3615208221204578, 103.8160867611435], 12);
 
-// Dark map layer
-let darkMapLayer = L.tileLayer(
-  "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
-  {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-  }
-);
+// Dark map layer can be used in "Go Live" but requires an active subscription during deployment
+// // Dark map layer
+// let darkMapLayer = L.tileLayer(
+//   "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+//   {
+//     maxZoom: 19,
+//     attribution:
+//       '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+//   }
+// );
 
 // Google street layer
 let googleLayer = L.tileLayer(
@@ -105,7 +106,7 @@ omLayer.addTo(map);
 
 //Add layer control and keep it expanded
 let baseMaps = {
-  "Dark Map - Clean": darkMapLayer,
+  // "Dark Map - Clean": darkMapLayer,
   "Google Streets": googleLayer,
   "One Map": omLayer,
 };
