@@ -125,9 +125,12 @@ mapScale.addTo(map);
 
 // Full screen mode
 const mapID = document.getElementById("map");
-function fullScreen() {
+const fullScreenButton = document.querySelector(".fullScreenButton");
+function fullScreenMode() {
   mapID.requestFullscreen();
 }
+
+fullScreenButton.addEventListener("click", fullScreenMode);
 
 // Add help location marker and display route to destination
 map.on("click", function (e) {
@@ -135,7 +138,7 @@ map.on("click", function (e) {
 
   function routing(position) {
     const trackerLocation = L.circle([e.latlng.lat, e.latlng.lng], {
-      radius: 100, //assuming tracker is accurate to 100m radius
+      radius: 500, //sending out a message to taxis within 500m radius
       // icon: helpIcon,
     });
     trackerLocation.addTo(map);
@@ -179,14 +182,13 @@ if (navigator.geolocation == false) {
 function getMyLocation(position) {
   const lat = position.coords.latitude;
   const lng = position.coords.longitude;
-  const accuracy = position.coords.accuracy;
 
   const myLocation = L.marker([lat, lng], { icon: userIcon }).bindPopup(
     "<h2>This is my current location!</h2>"
   );
   myLocation.addTo(map);
 
-  const circles = L.circle([lat, lng], { radius: accuracy });
+  const circles = L.circle([lat, lng]);
   circles.addTo(map);
 }
 
@@ -204,4 +206,10 @@ setInterval(displayMyLocationNow, 15000); //refresh my location at set interval
 // Refresh HTML page
 function refreshPage() {
   window.location.reload();
+}
+
+//Sending message
+function jsAlert() {
+  window.alert("Message sent!");
+  refreshPage();
 }
