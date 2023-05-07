@@ -9,7 +9,7 @@ body {
   background-color: #3e3e3e;
 }
 
-.container,
+.buttonContainer,
 #mouseCoordinates-lat,
 #mouseCoordinates-lng {
   display: flex;
@@ -57,10 +57,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
 
   color: #ea1d6f;
-  font-size: 26px;
+  font-size: 1em;
 }
 
 .broadcastGroup {
@@ -111,3 +111,20 @@ body {
 }
 
 /* End of Contact Form */
+
+/* Media Queries */
+@media screen and (max-width: 600px) {
+  .formBody {
+    padding: 40px;
+    flex-direction: column;
+    margin-top: 0px;
+  }
+
+  .formBodyItem {
+    padding: 0;
+  }
+
+  .buttonContainer {
+    display: block;
+  }
+}
