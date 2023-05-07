@@ -58,3 +58,25 @@ This web application is targeted towards users who wish to employ another safegu
 <a href="https://api.jquery.com/"><b>Jquery</b></a>
 
 - This project uses Jquery to simplify DOM manipulation and provide better UX.
+
+# Deployment - Live Link
+
+This project has been deployed to <a href="choonleong.github.io"><b>Github</b></a>.
+
+# Credits
+
+<a href="https://data.gov.sg/"><b>Data.gov.sg</b></a>
+
+- Data for the taxi markers were fetched from data.gov.sg
+
+<a href="https://leafletjs.com/"><b>Leaflet</b></a>
+
+- The map is only made possible with Leaflet and their documentation
+
+<a href="https://www.flaticon.com/"><b>Icons</b></a>
+
+- The icons used were downloaded from Flaticon
+
+Google / One Map / Open Map Tiles
+
+- The map layers are linked from the above-named websites
